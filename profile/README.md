@@ -66,10 +66,10 @@ Our ecosystem includes three integrated products:
 
 | Role | Member | GitHub |
 |------|---------|--------|
-| Lead Developer & Architect | **@zaebee** | [@zaebee](https://github.com/zaebee) |
+| Backend Developer | **@zaebee** | [@zaebee](https://github.com/zaebee) |
 | Product Owner & QA Lead | **@ownima-ivan** | [@ownima-ivan](https://github.com/ownima-ivan) |
 | Business Analyst & Frontend | **@AlexandrovTLG** | [@AlexandrovTLG](https://github.com/AlexandrovTLG) |
-| Backend Developer | **@ReD1KC** | [@ReD1KC](https://github.com/ReD1KC) |
+| Frontend Developer | **@ReD1KC** | [@ReD1KC](https://github.com/ReD1KC) |
 
 ---
 
