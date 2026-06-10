@@ -1,130 +1,68 @@
-# 🚗 Ownima – Vehicle Rental Management Platform
+# Ownima — Vehicle Rental Management Platform
 
-**Empowering small and medium-sized rental businesses through digital transformation.**
-
----
-
-## 🌍 Overview
-
-**Ownima** is a cloud-based vehicle rental management system designed to simplify fleet operations, streamline reservations, and enhance customer experiences for rental businesses of all sizes.
-
-Our ecosystem includes three integrated products:
-
-- **Ownima: Owner** – for rental businesses to manage vehicles, finances, and bookings.  
-- **Ownima: Rider** – for end-users to search, book, and manage rentals.  
-- **Ownima: Booking Website** – for independent rental services using Ownima to provide branded customer portals.  
-- **Ownima: Admin Panel** – for global project management and analytics.
+**Empowering rental businesses through modern, scalable technology.**
 
 ---
 
-## 🎯 Mission
+## What We Build
 
-> To digitalize and simplify the vehicle rental market through modern, scalable, and user-friendly technology.
+Ownima is a full-stack vehicle rental platform connecting rental businesses with their customers:
 
----
-
-## ⚙️ Key Features
-
-✅ Vehicle inventory management  
-✅ Online reservations & real-time availability  
-✅ Flexible pricing (seasonal, duration-based)  
-✅ Payment gateway integration  
-✅ Financial dashboards & analytics  
-✅ Multi-language support (EN, RU, TH, VI, ID)  
-✅ Web & mobile access  
-✅ Role-based authentication and admin control  
+| Product | Description | Stack |
+|---------|-------------|-------|
+| [**Owner API**](https://github.com/Ownima/owner-api) | Backend powering all business logic, REST API, background workers | Python · FastAPI · PostgreSQL · OpenSearch |
+| [**Owner Web**](https://github.com/Ownima/owner-web) | Owner dashboard — fleet management, reservations, finance | React 18 · TypeScript · Capacitor (mobile) |
+| [**Rider Web**](https://github.com/Ownima/rider-web) | Customer-facing app — vehicle browsing, booking, multilingual | Vue 3 · TypeScript · i18n (EN/RU/TH/VI/ID) |
+| [**Admin Panel**](https://github.com/Ownima/ownima-admin) | Internal admin — analytics, user management, operations | React 19 · TypeScript |
 
 ---
 
-## 🧩 Architecture
+## Infrastructure
 
-**Tech Stack**
-- **Backend:** FastAPI, PostgreSQL, OpenSearch  
-- **Frontend:** React (Next.js), Tailwind CSS  
-- **Mobile:** React Native (planned)  
-- **Infrastructure:** AWS, Docker, Kubernetes, CI/CD  
+```
+PostgreSQL  — transactional data (users, wallets, transactions)
+OpenSearch  — vehicle/reservation documents + event log
+Redis       — background job queue (SAQ) + metrics cache
+MinIO       — vehicle images and file uploads
+```
 
-**Security**
-- End-to-end data encryption  
-- Role-based access control  
-- Regular backups and recovery protocols  
+Deployed via **Docker + Ansible**. CI/CD on **GitHub Actions**. Releases automated with **Release Please**.
 
 ---
 
-## 📆 Roadmap (Highlights)
+## Key Features
 
-| Milestone | Target | Status |
-|------------|---------|--------|
-| MVP Release | Q1 2025 | 🏗 In Progress |
-| Payment Integration | Q2 2025 | 🔜 Planned |
-| Multi-language Support | Q4 2025 | ⏳ Planned |
-| Mobile App Launch | Q1 2026 | ⏳ Planned |
-
----
-
-## 👥 Team
-
-| Role | Member | GitHub |
-|------|---------|--------|
-| Backend Developer | **@zaebee** | [@zaebee](https://github.com/zaebee) |
-| Product Owner & QA Lead | **@ownima-ivan** | [@ownima-ivan](https://github.com/ownima-ivan) |
-| Business Analyst & Frontend | **@AlexandrovTLG** | [@AlexandrovTLG](https://github.com/AlexandrovTLG) |
-| Frontend Developer | **@ReD1KC** | [@ReD1KC](https://github.com/ReD1KC) |
+- Multi-language support: English, Russian, Thai, Vietnamese, Indonesian
+- Role-based access control (Owner / Rider / Admin)
+- Flexible pricing templates (seasonal, duration-based)
+- Real-time availability and reservation management
+- Financial dashboards, wallet system, transaction history
+- Web + native mobile (iOS/Android via Capacitor)
+- Background processing via SAQ worker queue
+- MCP server for vehicle image recognition
 
 ---
 
-## 📈 Goals
+## Development
 
-By **one month after MVP**, we aim to achieve:
+Each repo has a `CLAUDE.md` with detailed development guidance. Quick links:
 
-- 🚙 120+ vehicles listed across 3 key cities  
-- 👥 2+ active owner users per city  
-- 💳 100+ online bookings per month  
+- **Backend**: `cd owner-api/ownima-backend && docker compose watch`
+- **Owner Web**: `cd owner-web && bun dev`
+- **Rider Web**: `cd rider-web && bun dev`
 
----
-
-## 💼 Business Impact
-
-- **Break-even:** Month 18 (Q2 2026)  
-- **Revenue projection:** $2.4M by Year 3  
-- **ROI Timeline:** 24 months  
-- **Customer Lifetime Value:** $2,880  
+See [RELEASING.md](../RELEASING.md) for the release process and conventional commit conventions.
 
 ---
 
-## 🧠 Why Ownima?
+## Team
 
-- Built for **SMBs** in the rental industry  
-- Designed with **flexibility and scale** in mind  
-- Backed by a **dedicated, cross-functional team**  
-- Offers **data-driven insights** for smarter decisions  
-
----
-
-## 🛠 Development Philosophy
-
-We believe in:
-- Clean architecture and modular design  
-- Continuous testing and integration  
-- Transparent project management  
-- Open collaboration and documentation-first culture  
+| Role | GitHub |
+|------|--------|
+| Backend / Architecture | [@zaebee](https://github.com/zaebee) |
+| Product / QA | [@ownima-ivan](https://github.com/ownima-ivan) |
+| Frontend | [@AlexandrovTLG](https://github.com/AlexandrovTLG) · [@ReD1KC](https://github.com/ReD1KC) |
 
 ---
 
-## 🤝 Contributing
-
-We welcome contributions from developers, designers, and testers.  
-Please visit our [CONTRIBUTING.md](../CONTRIBUTING.md) (coming soon) for details.
-
----
-
-## 📬 Contact
-
-- 🌐 Website: https://beta.ownima.com
-- 📧 Email: support@ownima.com  
-- 🧭 GitHub: [github.com/ownima](https://github.com/ownima)
-
----
-
-> _"Digitalizing the vehicle rental market — one booking at a time."_  
-> — The Ownima Team
+🌐 [beta.ownima.com](https://beta.ownima.com) · 📧 support@ownima.com
