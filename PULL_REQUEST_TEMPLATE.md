@@ -4,8 +4,8 @@
 
 ## Verification
 
-- [ ] Tests, lint and typecheck run for the touched repository
-- [ ] UI change applied to every surface of the entity
+- [ ] Tests, lint, typecheck and build run for the touched repository
+- [ ] UI change applied to every surface of the entity (table view, card view, detail page)
 - [ ] Cross-repository references are full URLs
 
 ## Notes
