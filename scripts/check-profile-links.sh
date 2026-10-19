@@ -34,7 +34,7 @@ for name in $(grep -oE 'https://github\.com/Ownima/[A-Za-z0-9._-]+' "$README" | 
 done
 
 echo "== live domains =="
-for url in $(grep -oE 'https://[a-z0-9.-]+\.ownima\.com' "$README" | sort -u); do
+for url in $(grep -oE 'https://([a-z0-9-]+\.)*ownima\.com' "$README" | sort -u); do
     code="$(curl -sI -o /dev/null -w '%{http_code}' --max-time 20 "$url")" || code=000
     case "$code" in
         2*|3*) echo "  ok   $url $code"; ok=$((ok + 1)) ;;
