@@ -2,7 +2,7 @@
 
 ## Product questions
 
-Email **contact@ownima.com** or reach the team in the internal chat.
+Email **contact@ownima.com**.
 
 ## Bugs and feature requests
 

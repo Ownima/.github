@@ -22,7 +22,8 @@ Conventional Commits: `type(scope): subject`. Types in use: `feat`, `fix`,
 
 ## Types and schemas
 
-Frontends generate their API types from the backend OpenAPI schema. Never
+Frontends generate their API types from the backend OpenAPI schema with
+`bun run gen` (`owner-web`, `owner-admin`, `booking-web`, `rider-app`). Never
 hand-edit generated directories (`gen`, `gen_types`). Regenerate and commit the
 snapshot instead.
 

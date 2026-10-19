@@ -18,5 +18,5 @@ within two working days and to keep you updated until it is resolved.
 
 ## Supported versions
 
-Only the latest release of each service is supported. Security fixes are applied
-to `main` and released through the normal Release Please flow.
+Only the latest release of each released service is supported. Fixes land on
+`main`; where Release Please is configured, they ship in the next release.
