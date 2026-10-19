@@ -1,68 +1,95 @@
 # Ownima — Vehicle Rental Management Platform
 
-**Empowering rental businesses through modern, scalable technology.**
+**One platform for rental businesses and their riders: fleet, reservations, pricing and finance.**
 
 ---
 
-## What We Build
+## Live products
 
-Ownima is a full-stack vehicle rental platform connecting rental businesses with their customers:
-
-| Product | Description | Stack |
-|---------|-------------|-------|
-| [**Owner API**](https://github.com/Ownima/owner-api) | Backend powering all business logic, REST API, background workers | Python · FastAPI · PostgreSQL · OpenSearch |
-| [**Owner Web**](https://github.com/Ownima/owner-web) | Owner dashboard — fleet management, reservations, finance | React 18 · TypeScript · Capacitor (mobile) |
-| [**Rider Web**](https://github.com/Ownima/rider-web) | Customer-facing app — vehicle browsing, booking, multilingual | Vue 3 · TypeScript · i18n (EN/RU/TH/VI/ID) |
-| [**Admin Panel**](https://github.com/Ownima/ownima-admin) | Internal admin — analytics, user management, operations | React 19 · TypeScript |
+| Product | URL | Audience |
+|---|---|---|
+| Ownima | [ownima.com](https://ownima.com) | Public site |
+| Rider marketplace | [rider.ownima.com](https://rider.ownima.com) | Riders across all owners |
+| Booking storefront | [booking.ownima.com](https://booking.ownima.com) | Riders of one owner |
+| Owner cabinet | [beta.ownima.com](https://beta.ownima.com) | Rental owners |
+| Admin panel | [admin.ownima.com](https://admin.ownima.com) | Ownima operators |
 
 ---
 
-## Infrastructure
+## Platform
 
+- Three roles: owner, rider, admin, with role-based access control.
+- Fleet and vehicle management, images stored in MinIO.
+- Reservations with real-time availability and a booking request flow.
+- Pricing templates (seasonal, duration-based) and a market pricing oracle.
+- Wallet, transactions and financial dashboards.
+- Five locales: English, Russian, Thai, Indonesian, Vietnamese.
+- Background jobs on a SAQ worker queue.
+- AI support drafting and vehicle image recognition.
+
+---
+
+## Repositories
+
+Product repositories are private; links work for Ownima members.
+
+| Repository | Role | Stack |
+|---|---|---|
+| [owner-api](https://github.com/Ownima/owner-api) `(private)` | REST API, workers, Telegram bot, protobuf schema | Python 3.12 · FastAPI · PostgreSQL · OpenSearch · Redis · MinIO · SAQ |
+| [owner-web](https://github.com/Ownima/owner-web) `(private)` | Owner dashboard, Capacitor mobile app | React 19 · TypeScript · TanStack · Tailwind 4 · Vite · bun |
+| [owner-admin](https://github.com/Ownima/owner-admin) `(private)` | Internal admin panel | React 19 · TanStack Query · Radix · Tailwind 4 · Vitest · bun |
+| [booking-web](https://github.com/Ownima/booking-web) `(private)` | Rider storefront for a single owner, embeddable widget | Nuxt 4 · Vue 3 · Pinia · TanStack Vue Query · Tailwind 4 · bun |
+| [rider-app](https://github.com/Ownima/rider-app) `(private)` | Multi-owner rental marketplace | Nuxt 4 · Vue 3 · FSD · Pinia · Tailwind 4 · Vercel |
+| [support-agent](https://github.com/Ownima/support-agent) `(private)` | AI support drafting, knowledge base, evals | Python 3.12 · Claude · n8n |
+| [pricing-oracle](https://github.com/Ownima/pricing-oracle) | Rental pricing market intelligence | Python 3.12 · FastAPI · SQLModel · A2A · Fetch.ai |
+| [ownima-blog](https://github.com/Ownima/ownima-blog) `(private)` | SEO site for the Thailand market | Astro 6 · TypeScript · pagefind · bun |
+| [ansible](https://github.com/Ownima/ansible) `(private)` | Infrastructure, deployment, monitoring, runbooks | Ansible · Docker · Prometheus · Grafana · Loki |
+| [ownima-workspace](https://github.com/Ownima/ownima-workspace) `(private)` | Workspace guide and shared agent skills | Bash · Markdown |
+
+---
+
+## Architecture
+
+```mermaid
+flowchart LR
+  RA[rider-app] --> API[owner-api]
+  BW[booking-web] --> API
+  OW[owner-web] --> API
+  AD[owner-admin] --> API
+  API --> PG[(PostgreSQL)]
+  API --> OS[(OpenSearch)]
+  API --> RD[(Redis / SAQ)]
+  API --> MI[(MinIO)]
+  API --> REC[Recognition]
+  SA[support-agent] --> N8N[n8n]
+  PO[pricing-oracle] --> API
 ```
-PostgreSQL  — transactional data (users, wallets, transactions)
-OpenSearch  — vehicle/reservation documents + event log
-Redis       — background job queue (SAQ) + metrics cache
-MinIO       — vehicle images and file uploads
-```
-
-Deployed via **Docker + Ansible**. CI/CD on **GitHub Actions**. Releases automated with **Release Please**.
 
 ---
 
-## Key Features
+## For AI agents
 
-- Multi-language support: English, Russian, Thai, Vietnamese, Indonesian
-- Role-based access control (Owner / Rider / Admin)
-- Flexible pricing templates (seasonal, duration-based)
-- Real-time availability and reservation management
-- Financial dashboards, wallet system, transaction history
-- Web + native mobile (iOS/Android via Capacitor)
-- Background processing via SAQ worker queue
-- MCP server for vehicle image recognition
+Start at [ownima-workspace](https://github.com/Ownima/ownima-workspace): it holds the
+workspace guide and the shared skills. Each repository has an `AGENTS.md` with its own
+commands and rules. `CLAUDE.md` only imports `AGENTS.md`.
 
 ---
 
-## Development
+## Releasing
 
-Each repo has a `CLAUDE.md` with detailed development guidance. Quick links:
-
-- **Backend**: `cd owner-api/ownima-backend && docker compose watch`
-- **Owner Web**: `cd owner-web && bun dev`
-- **Rider Web**: `cd rider-web && bun dev`
-
-See [RELEASING.md](../RELEASING.md) for the release process and conventional commit conventions.
+Release Please derives versions from conventional commits. See [RELEASING.md](../RELEASING.md).
 
 ---
 
 ## Team
 
 | Role | GitHub |
-|------|--------|
+|---|---|
 | Backend / Architecture | [@zaebee](https://github.com/zaebee) |
 | Product / QA | [@ownima-ivan](https://github.com/ownima-ivan) |
-| Frontend | [@AlexandrovTLG](https://github.com/AlexandrovTLG) · [@ReD1KC](https://github.com/ReD1KC) |
+| Frontend | [@ReD1KC](https://github.com/ReD1KC) |
 
 ---
 
-🌐 [beta.ownima.com](https://beta.ownima.com) · 📧 support@ownima.com
+Contact: **contact@ownima.com**
+Security: [private advisories](https://github.com/Ownima/.github/security/advisories/new)
