@@ -23,7 +23,7 @@
 - Reservations with real-time availability and a booking request flow.
 - Pricing templates (seasonal, duration-based) and a market pricing oracle.
 - Wallet, transactions and financial dashboards.
-- Five locales: English, Russian, Thai, Indonesian, Vietnamese.
+- Five locales in the rider apps: English, Russian, Thai, Indonesian, Vietnamese.
 - Background jobs on a SAQ worker queue.
 - AI support drafting and vehicle image recognition.
 
@@ -31,7 +31,7 @@
 
 ## Repositories
 
-Product repositories are private; links work for Ownima members.
+Most product repositories are private; `pricing-oracle` is public. Links work for Ownima members.
 
 | Repository | Role | Stack |
 |---|---|---|
@@ -70,8 +70,8 @@ flowchart LR
 ## For AI agents
 
 Start at [ownima-workspace](https://github.com/Ownima/ownima-workspace): it holds the
-workspace guide and the shared skills. Each repository has an `AGENTS.md` with its own
-commands and rules. `CLAUDE.md` only imports `AGENTS.md`.
+workspace guide and the shared skills. Many repositories carry their own `AGENTS.md` or
+`CLAUDE.md` with commands and rules; the workspace guide is the source of truth.
 
 ---
 
