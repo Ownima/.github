@@ -44,6 +44,10 @@ done
 echo "== live domains =="
 for url in $(grep -oE 'https://([a-z0-9-]+\.)*ownima\.com' "$README" | sort -u); do
     code="$(curl -sI -o /dev/null -w '%{http_code}' --max-time 20 "$url")" || code=000
+    if [ "$code" = "000" ]; then
+        sleep 2
+        code="$(curl -sI -o /dev/null -w '%{http_code}' --max-time 20 "$url")" || code=000
+    fi
     case "$code" in
         2*|3*) echo "  ok   $url $code"; ok=$((ok + 1)) ;;
         *)     echo "  FAIL $url $code"; fail=$((fail + 1)) ;;
