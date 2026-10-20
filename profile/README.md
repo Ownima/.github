@@ -77,7 +77,7 @@ workspace guide and the shared skills. Many repositories carry their own `AGENTS
 
 ## Releasing
 
-Release Please derives versions from conventional commits. See [RELEASING.md](../RELEASING.md).
+Release Please derives versions from conventional commits. See [RELEASING.md](https://github.com/Ownima/.github/blob/main/RELEASING.md).
 
 ---
 

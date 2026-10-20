@@ -10,7 +10,6 @@
 # set on the repository: without an app token, private repositories are not
 # visible and the coverage check only sees public repositories.
 set -uo pipefail
-export PATH="/usr/bin:/bin:$PATH"
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 README="$ROOT/profile/README.md"
@@ -22,6 +21,11 @@ STRICT=0
 for tool in gh curl; do
     command -v "$tool" >/dev/null 2>&1 || { echo "missing required tool: $tool" >&2; exit 2; }
 done
+
+# GET of a single byte, not HEAD: some servers and CDNs answer HEAD with 405.
+probe() {
+    curl -s -o /dev/null -r 0-0 -w '%{http_code}' --max-time 20 "$1"
+}
 
 fail=0
 warn=0
@@ -43,10 +47,10 @@ done
 
 echo "== live domains =="
 for url in $(grep -oE 'https://([a-z0-9-]+\.)*ownima\.com' "$README" | sort -u); do
-    code="$(curl -sI -o /dev/null -w '%{http_code}' --max-time 20 "$url")" || code=000
+    code="$(probe "$url")" || code=000
     if [ "$code" = "000" ]; then
         sleep 2
-        code="$(curl -sI -o /dev/null -w '%{http_code}' --max-time 20 "$url")" || code=000
+        code="$(probe "$url")" || code=000
     fi
     case "$code" in
         2*|3*) echo "  ok   $url $code"; ok=$((ok + 1)) ;;
