@@ -1,0 +1,55 @@
+name: profile-links
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: profile-links-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Detect app credentials
+        id: creds
+        env:
+          APP_ID: ${{ secrets.OWNIMA_BOT_APP_ID }}
+          APP_KEY: ${{ secrets.OWNIMA_BOT_PRIVATE_KEY }}
+        run: |
+          if [ -n "$APP_ID" ] && [ -n "$APP_KEY" ]; then
+            echo "mode=app" >> "$GITHUB_OUTPUT"
+          else
+            echo "mode=soft" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Create app token
+        id: app
+        if: steps.creds.outputs.mode == 'app'
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
+        with:
+          app-id: ${{ secrets.OWNIMA_BOT_APP_ID }}
+          private-key: ${{ secrets.OWNIMA_BOT_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+
+      - name: Check profile links
+        env:
+          GH_TOKEN: ${{ steps.app.outputs.token || github.token }}
+        run: |
+          if [ "${{ steps.creds.outputs.mode }}" = "app" ]; then
+            scripts/check-profile-links.sh --strict
+          else
+            echo "App credentials missing; private repository links are a warning"
+            scripts/check-profile-links.sh
+          fi
