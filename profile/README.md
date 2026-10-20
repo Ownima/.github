@@ -12,7 +12,6 @@
 | Rider marketplace | [rider.ownima.com](https://rider.ownima.com) | Riders across all owners |
 | Booking storefront | [booking.ownima.com](https://booking.ownima.com) | Riders of one owner |
 | Owner cabinet | [beta.ownima.com](https://beta.ownima.com) | Rental owners |
-| Admin panel | [admin.ownima.com](https://admin.ownima.com) | Ownima operators |
 
 ---
 
